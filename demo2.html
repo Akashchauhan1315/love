@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>For My Valentine ❤️</title>
+
+<style>
+body{
+    margin:0;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(135deg,#ff4e8a,#ff2e63);
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+}
+
+/* Card */
+.card{
+    background:#ff6f91;
+    padding:30px;
+    width:340px;
+    text-align:center;
+    border-radius:20px;
+    color:white;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+    position:relative;
+    z-index:2;
+    transition:0.5s;
+}
+
+/* Profile Image */
+.profile{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    margin:0 auto 15px auto;
+    background-image:url('photo/love.jpeg');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    border:3px solid white;
+}
+
+
+/* Animated Heading */
+#animatedText span{
+    opacity:0;
+    animation:fadeWord 0.5s forwards;
+}
+
+@keyframes fadeWord{
+    to{
+        opacity:1;
+    }
+}
+
+p{
+    font-size:14px;
+    line-height:1.6;
+}
+
+button{
+    padding:8px 18px;
+    border:none;
+    border-radius:20px;
+    font-size:14px;
+    cursor:pointer;
+}
+
+#yesBtn{
+    background:#ff2e63;
+    color:white;
+    margin-right:10px;
+}
+
+#noBtn{
+    background:black;
+    color:white;
+    position:absolute;
+}
+
+/* Floating hearts upward */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:floatUp 4s linear forwards;
+}
+
+@keyframes floatUp{
+    from{transform:translateY(0);opacity:1;}
+    to{transform:translateY(-100vh);opacity:0;}
+}
+
+/* Confetti falling */
+.confetti{
+    position:absolute;
+    width:8px;
+    height:8px;
+    animation:fall 4s linear forwards;
+}
+
+@keyframes fall{
+    from{transform:translateY(-20px) rotate(0deg);}
+    to{transform:translateY(100vh) rotate(360deg);}
+}
+</style>
+</head>
+
+<body>
+
+<div class="card" id="card">
+
+    <!-- Replace image.jpg with her real photo -->
+    <div class="profile"></div>
+
+    <h2 id="animatedText"></h2>
+
+    <p>
+        Every smile of yours feels like home.  
+        Every moment with you feels like magic.  
+        And today… I just have one important question.
+    </p>
+
+    <p><strong>Will you be my Valentine? ❤️</strong></p>
+
+    <button id="yesBtn">Yes ❤️</button>
+    <button id="noBtn">No 💔</button>
+</div>
+
+<script>
+
+/* Word-by-word heading animation */
+const words = ["Hey", "My", "Love", "💖"];
+const textElement = document.getElementById("animatedText");
+
+let index = 0;
+
+function showNextWord() {
+    if (index < words.length) {
+        const span = document.createElement("span");
+        span.innerText = words[index] + " ";
+        textElement.appendChild(span);
+        index++;
+        setTimeout(showNextWord, 500);
+    }
+}
+
+window.onload = showNextWord;
+
+
+/* NO button runs */
+const noBtn = document.getElementById("noBtn");
+noBtn.addEventListener("mouseover", function(){
+    const x = Math.random() * (window.innerWidth - 100);
+    const y = Math.random() * (window.innerHeight - 50);
+
+    noBtn.style.position="fixed";
+    noBtn.style.left=x+"px";
+    noBtn.style.top=y+"px";
+});
+
+/* YES button celebration */
+const yesBtn = document.getElementById("yesBtn");
+const card = document.getElementById("card");
+
+yesBtn.onclick=function(){
+
+    card.innerHTML=`
+        <h2>🎉 CONGRATULATIONS 🎉</h2>
+        <p>You are officially, proudly and forever</p>
+        <h3>💖 The Valentine of 💖</h3>
+        <h2>Akash Chauhan ❤️</h2>
+        <p>
+        I choose you today.  
+        I'll choose you tomorrow.  
+        And I'll keep choosing you — always.
+        </p>
+        <p><strong>Happy Valentine's Day 💞</strong></p>
+    `;
+
+    startHearts();
+    startConfetti();
+};
+
+/* Hearts go UP */
+function startHearts(){
+    setInterval(()=>{
+        const heart=document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="❤️";
+        heart.style.left=Math.random()*100+"vw";
+        heart.style.bottom="0";
+        heart.style.fontSize=(Math.random()*20+15)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),4000);
+    },200);
+}
+
+/* Confetti fall DOWN */
+function startConfetti(){
+    setInterval(()=>{
+        const conf=document.createElement("div");
+        conf.classList.add("confetti");
+        conf.style.left=Math.random()*100+"vw";
+        conf.style.backgroundColor=
+            ["yellow","white","pink","orange","cyan"][Math.floor(Math.random()*5)];
+        document.body.appendChild(conf);
+
+        setTimeout(()=>conf.remove(),4000);
+    },400);
+}
+
+</script>
+
+</body>
+</html>
